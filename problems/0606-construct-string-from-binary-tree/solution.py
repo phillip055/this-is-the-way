@@ -5,15 +5,21 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def tree2str(self, t: TreeNode) -> str:
-        if t == None:
-            return ''
-        if (t.left == None and t.right == None):
-            return str(t.val)
-        base_string = ''
-        base_string += str(t.val)
-        left_string = self.tree2str(t.left) if t.left != None else ''
-        right_string = self.tree2str(t.right) if t.right != None else ''
-        base_string += '(' + left_string + ')'
-        base_string += '(' + right_string + ')' if t.right != None else ''
-        return base_string
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+        if root == None:
+            return ""
+        _str = str(root.val)
+        if root.right:
+            if root.left:
+                _str += "(" + self.tree2str(root.left) + ")"
+            else:
+                _str += "()"
+            _str += "(" + self.tree2str(root.right) + ")"
+        else:
+            if root.left:
+                _str += "(" + self.tree2str(root.left) + ")"
+        return _str
+    
+            
+        
+        
