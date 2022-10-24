@@ -1,12 +1,7 @@
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        totalMax = float('-inf')
-        currentMax = float('-inf')
-        
-        for num in nums:
-            if (num > currentMax + num):
-                currentMax = num
-            else:
-                currentMax += num
-            totalMax = max(totalMax, currentMax)
-        return totalMax
+        res = [nums[0]]
+        for idx in range(1, len(nums)):
+            num = nums[idx]
+            res.append(max(res[-1] + num, num))
+        return max(res)
