@@ -1,16 +1,13 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        words = {}
-        result = []
-        for idx in range(len(strs)):
-            current_word = strs[idx]
-            code = sorted(current_word)
-            codestr = "".join(code)
-            if codestr in words:
-                anagramIdx = words[codestr]
-                result[anagramIdx].append(current_word)
+        table = {}
+        
+        for a in strs:
+            d = "".join(sorted(a))
+            if d in table:
+                table[d].append(a)
             else:
-                current_length = len(result)
-                words[codestr] = current_length
-                result.append([current_word])
-        return result
+                table[d] = [a]
+        return [table[k] for k in table]
+        
+        
