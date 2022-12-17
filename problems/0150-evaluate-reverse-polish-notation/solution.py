@@ -17,5 +17,4 @@ class Solution:
                 if token == "-":
                     res = b-a
                 temp.append(res)
-        return temp[0]
-                    
+        return int(temp[0])
