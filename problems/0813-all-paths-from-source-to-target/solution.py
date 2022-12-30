@@ -1,19 +1,26 @@
-class Solution:
-    def allPathsSourceTarget(self, graph: List[List[int]]) -> List[List[int]]:
-        
+class Solution(object):
+    def allPathsSourceTarget(self, graph):
+        """
+        :type graph: List[List[int]]
+        :rtype: List[List[int]]
+        """
+
+        toFind = len(graph) - 1
         result = []
-        def rec(i, currentPath, graph):
-            if i >= len(graph) - 1:
-                currentPath.append(i)
-                result.append(currentPath)
-                return;
-            
-            for nextIdx in graph[i]:
-                rec(nextIdx, currentPath[:] + [i], graph)
-            
-            return;
+        def dfs(node, visited=[]):
+            print(visited)
+            if node == toFind:
+                visited.append(node)
+                result.append(visited)
+                return True
+            if node in visited:
+                return
+            visited.append(node)
+            nextNodes = graph[node]
+            for n in nextNodes:
+                dfs(n, list(visited))
         
-        rec(0, [], graph)
-        
+        dfs(0)
         return result
-                
+
+
