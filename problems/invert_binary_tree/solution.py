@@ -12,3 +12,4 @@ class Solution:
             root.left = left
             root.right = right
         return root
+    
