@@ -1,29 +1,11 @@
 class Solution:
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        slots_filled = 0
-        if (len(flowerbed) == 1):
-            if (flowerbed[0] == 0):
-                flowerbed[0] = 1
-                slots_filled +=1
-        else:
-            for plot_index in range(len(flowerbed)):
-                if (slots_filled >= n):
-                    break
-                if (plot_index == 0):
-                    if (not(flowerbed[plot_index] or flowerbed[plot_index+1])):
-                        flowerbed[plot_index] = 1
-                        slots_filled +=1
-                    continue
-                if (plot_index ==len(flowerbed)-1):
-                    if (not(flowerbed[plot_index-1] or flowerbed[plot_index])):
-                        flowerbed[plot_index] = 1
-                        slots_filled +=1
-                    continue
-                if (
-                    (not(flowerbed[plot_index-1] or flowerbed[plot_index]))
-                    and 
-                    (not(flowerbed[plot_index] or flowerbed[plot_index+1]))
-                ):
-                    flowerbed[plot_index] = 1
-                    slots_filled +=1
-        return slots_filled >= n
+        count = 0
+        for i in range(len(flowerbed)):
+            if flowerbed[i] == 0:
+                is_empty_pre = i == 0 or flowerbed[i-1] == 0
+                is_empty_next = i == len(flowerbed) - 1 or flowerbed[i+1] == 0
+                if is_empty_pre and is_empty_next:
+                    flowerbed[i] = 1
+                    count += 1
+        return count >= n
