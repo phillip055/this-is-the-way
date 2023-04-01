@@ -1,13 +1,13 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        firstIdx = 0
-        lastIdx = len(nums) - 1
-        while firstIdx <= lastIdx:
-            mid = firstIdx + (lastIdx - firstIdx) // 2
+        start, end = 0, len(nums) - 1
+        while start <= end:
+            mid = (start + end) // 2
             if nums[mid] == target:
                 return mid
-            if target < nums[mid]:
-                lastIdx = mid - 1
+            if nums[mid] < target:
+                start = mid + 1
             else:
-                firstIdx = mid + 1
+                end = mid - 1
         return -1
+
