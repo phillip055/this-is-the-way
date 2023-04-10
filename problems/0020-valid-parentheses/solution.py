@@ -1,19 +1,15 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        opposites = {
-            '(': ')',
-            '{': '}',
-            '[': ']'
-        }
-        state = []
-        for bracket in s:
-            if (bracket in ['[', '(', '{']):
-                state.append(bracket)
+        stack = []
+        mapping = {"{": "}", "[": "]", "(":")"}
+        for char in s:
+            if char in mapping.keys():
+                stack.append(char)
             else:
-                if (len(state)) > 0:
-                    to_close = state.pop()
-                    if (opposites[to_close] != bracket):
-                        return False
-                else:
+                node = stack.pop() if len(stack) else None
+                if not node:
                     return False
-        return len(state) == 0
+                if mapping[node] != char:
+                    return False
+        return len(stack) == 0
+
