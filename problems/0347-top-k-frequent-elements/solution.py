@@ -1,5 +1,5 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        r = Counter(nums)
-        f = sorted(r, key=r.get, reverse=True)
+        c = Counter(nums)
+        f = sorted(c, key=lambda x: c[x], reverse=True)
         return f[:k]
