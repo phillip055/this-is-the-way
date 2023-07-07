@@ -2,17 +2,16 @@ class Solution:
     def longestSubarray(self, nums: List[int]) -> int:
         zero_count = 0
         longest_window = 0
-        ptr = 0
-
-        for i in range(len(nums)):
-            if nums[i] == 0:
+        left = 0
+        for right in range(len(nums)):
+            if nums[right] == 0:
                 zero_count += 1
-
+            
             while zero_count > 1:
-                if nums[ptr] == 0:
+                if nums[left] == 0:
                     zero_count -= 1
-                ptr += 1
-        
-            longest_window = max(longest_window, i - ptr)
-        
+                left += 1
+            longest_window = max(longest_window, right - left)
+
         return longest_window
+
