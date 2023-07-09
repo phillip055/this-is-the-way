@@ -1,14 +1,16 @@
 class Solution:
     def maxConsecutiveAnswers(self, answerKey: str, k: int) -> int:
-        counter = collections.Counter()
-        max_size = 0
+        counter = Counter()
+        left = 0
+        max_length = 1
 
         for right in range(len(answerKey)):
             counter[answerKey[right]] += 1
             minority = min(counter['T'], counter['F'])
+            if minority > k:
+                counter[answerKey[left]] -= 1
+                left += 1
+            max_length = max(max_length, right - left + 1)
+        return max_length
 
-            if minority <= k:
-                max_size += 1
-            else:
-                counter[answerKey[right - max_size]] -= 1
-        return max_size
+
