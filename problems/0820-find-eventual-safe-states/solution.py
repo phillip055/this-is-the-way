@@ -1,20 +1,24 @@
 class Solution:
     def eventualSafeNodes(self, graph: List[List[int]]) -> List[int]:
+        order = [0] * len(graph)
+        mapping = defaultdict(list)
 
-        safe = {}
-        def dfs(idx):
-            if idx in safe:
-                return safe[idx]
-            safe[idx] = False
-            for next_node in graph[idx]:
-                if not dfs(next_node):
-                    return safe[idx]
-            safe[idx] = True
-            return safe[idx]
+        for idx in range(len(graph)):
+            order[idx] += len(graph[idx])
+            for i in graph[idx]:
+                mapping[i].append(idx)
 
-        result = []
-        for i in range(len(graph)):
-            if dfs(i):
-                result.append(i)
-        return result
+        queue = []
+        for idx in range(len(order)):
+            if order[idx] == 0:
+                queue.append(idx)
+        
+        while len(queue):
+            node = queue.pop(0)
+            for next_node in mapping[node]:
+                order[next_node] -= 1
+                if order[next_node] == 0:
+                    queue.append(next_node)
+        
+        return [i for i, x in enumerate(order) if x == 0]
 
