@@ -1,11 +1,5 @@
-class Solution(object):
-    def myPow(self, x, n):
-        """
-        :type x: float
-        :type n: int
-        :rtype: float
-        """
-        
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
         if n == 0:
             return 1
         if n > 0:
