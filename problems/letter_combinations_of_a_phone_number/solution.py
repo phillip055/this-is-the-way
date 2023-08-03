@@ -1,8 +1,6 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
-        
-        result = []
-        
+        result = []        
         d = {
             '2': 'abc',
             '3': 'def',
@@ -13,7 +11,7 @@ class Solution:
             '8': 'tuv',
             '9': 'wxyz'
         }
-        
+
         def p(current, i, digits):
             if i >= len(digits):
                 if current != "":
