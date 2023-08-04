@@ -14,15 +14,14 @@ class Solution:
             return table
         t = Trie(wordDict)
         result = list()
+
         def dfs(currS, currTrie, currSentence):
             print(currS, currTrie, currSentence)
             if currS == "":
                 if "*" in currTrie:
                     currSentence.append(currTrie["*"])                    
                     result.append(currSentence)
-                    return
-                else:
-                    return
+                return
             if "*" in currTrie:
                 tempSentence = currSentence[:]
                 tempSentence.append(currTrie["*"])
@@ -34,8 +33,4 @@ class Solution:
                 return
         
         dfs(s, t, [])
-        return map(lambda x: " ".join(x), result)
-        
-        
-        
-        
+        return list(map(lambda x: " ".join(x), result))
