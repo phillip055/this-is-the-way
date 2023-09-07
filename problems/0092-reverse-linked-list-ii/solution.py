@@ -26,3 +26,4 @@ class Solution:
         leftPtr.next.next = curr
         leftPtr.next = prev
         return dummy.next
+        
