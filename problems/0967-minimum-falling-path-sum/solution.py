@@ -1,8 +1,5 @@
-from functools import cache
-
 class Solution:
     def minFallingPathSum(self, matrix: List[List[int]]) -> int:
-
         @cache
         def dfs(node):
             result = float('inf')
@@ -21,5 +18,4 @@ class Solution:
             res = dfs((0, i))
             result = min(res, result)
         return result
-
 
