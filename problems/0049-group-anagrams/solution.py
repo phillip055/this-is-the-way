@@ -9,5 +9,4 @@ class Solution:
             else:
                 table[d] = [a]
         return [table[k] for k in table]
-        
-        
+
