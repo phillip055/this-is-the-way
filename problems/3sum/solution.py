@@ -7,10 +7,6 @@ class Solution:
             leftIdx = i + 1
             rightIdx = len(nums) - 1
             while leftIdx < rightIdx:
-                if leftIdx == i:
-                    leftIdx += 1
-                if rightIdx == i:
-                    rightIdx -= 1
                 candidate = nums[leftIdx] + nums[rightIdx] + nums[i]
                 if candidate == targetSum:
                     results.add((nums[i], nums[leftIdx], nums[rightIdx])) 
