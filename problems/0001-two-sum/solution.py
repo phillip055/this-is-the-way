@@ -1,14 +1,9 @@
-class Solution(object):
-    def twoSum(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        res = {}
-        for i in range(len(nums)):
-            missing = target - nums[i]
-            if missing in res:
-                return [res[missing], i]
-            else:
-                res[nums[i]] = i
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        finding = {}
+        for idx, num in enumerate(nums):
+            if num in finding:
+                return finding[num], idx
+            finding[target - num] = idx
+        return False
+
