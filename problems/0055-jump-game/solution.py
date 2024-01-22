@@ -1,19 +1,12 @@
-from functools import cache
-
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        
-        n = len(nums)
-        
-        @cache
-        def rec(i):
-            if i >= n - 1:
-                return True
-            
-            for e in range(i + 1, min(i + nums[i], n - 1) + 1):
-                if rec(e):
-                    return True
-            return False
-        
-        return rec(0)
-    
+        if len(nums) <= 1:
+            return True
+        gas = nums[0]
+        for station in nums:
+            if gas == 0:
+                return False
+            gas -= 1
+            gas = max(gas, station)
+        return True
+
