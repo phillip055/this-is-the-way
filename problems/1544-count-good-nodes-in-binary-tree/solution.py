@@ -5,14 +5,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def goodNodes(self, root: TreeNode) -> int:
+    def goodNodes(self, root: TreeNode, _max=float('-inf')) -> int:
         if root == None:
             return 0
-        def helper(root, wall):
-            if root == None:
-                return 0
-            if root.val >= wall:
-                return 1 + helper(root.left, root.val) + helper(root.right, root.val)
-            else:
-                return helper(root.left, wall) + helper(root.right, wall)
-        return helper(root, root.val)
+        count = 0
+        if root.val >= _max:
+            count += 1
+            _max = root.val
+        count += self.goodNodes(root.left, _max)
+        count += self.goodNodes(root.right, _max)
+        return count
