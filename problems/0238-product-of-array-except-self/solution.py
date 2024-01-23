@@ -1,17 +1,14 @@
-class Solution(object):
-    def productExceptSelf(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        n = len(nums)
-        output = [1] * n
-        left_product = 1
-        right_product = 1
-        for i in range(n):
-            output[i] *= left_product
-            left_product *= nums[i]
-            output[n - 1 - i] *= right_product
-            right_product *= nums[n - 1 - i]
-        return output
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        length = len(nums)
+        l, r, answer = [0]*length, [0]*length, [0]*length
+        l[0] = 1
+        for i in range(1, length):
+            l[i] = nums[i - 1] * l[i - 1]
+        r[length - 1] = 1
+        for i in reversed(range(length - 1)):
+            r[i] = nums[i + 1] * r[i + 1]
+        for i in range(length):
+            answer[i] = l[i] * r[i]
+        return answer
 
