@@ -1,12 +1,13 @@
 class Solution:
-    def minCostClimbingStairs(self, cost: List[int]) -> int:
+    def minCostClimbingStairs(self, costs: List[int]) -> int:
         
         @cache
         def helper(idx):
-            if idx == len(cost) - 1:
-                return cost[idx]
-            if idx >= len(cost):
+            if idx > len(costs) - 1:
                 return 0
-            return cost[idx] + min(helper(idx + 1), helper(idx + 2))
-
-        return min(helper(1), helper(0))
+            return costs[idx] + min(
+                helper(idx + 1),
+                helper(idx + 2),
+            )
+        return min(helper(0), helper(1))
+            
