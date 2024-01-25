@@ -3,9 +3,14 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        zero=0
-        for i in nums:
-            if i==0:
-                nums.remove(i)
-                zero=i
-                nums.append(zero)
+        
+        non_zero = 0
+        for num in nums:
+            if num != 0:
+                nums[non_zero] = num
+                non_zero += 1
+        
+        for idx in range(non_zero, len(nums)):
+            nums[idx] = 0
+        return nums
+
