@@ -13,7 +13,5 @@ class Solution:
                 pre(root.right)
             return arr
         arr = pre(root)
-        a = sorted(arr)
-        return a[k-1]
-        
-        
+        return arr[k-1]
+
