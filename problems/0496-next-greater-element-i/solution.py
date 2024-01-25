@@ -1,18 +1,16 @@
 class Solution:
     def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        if not nums2:
-            return None
-        mapping = {}
-        result = []
-        stack = []
-        stack.append(nums2[0])
-        for i in range(1, len(nums2)):
-            while stack and nums2[i] > stack[-1]:
-                mapping[stack[-1]] = nums2[i]
-                stack.pop()
-            stack.append(nums2[i])
-        for element in stack:
-            mapping[element] = -1
-        for i in range(len(nums1)):
-            result.append(mapping[nums1[i]])
-        return result
+        result = {}
+        
+        stack = [nums2[0]]
+        for idx in range(len(nums2)):
+            while len(stack) and nums2[idx] > stack[-1]:
+                result[stack.pop()] = nums2[idx]
+            stack.append(nums2[idx])
+        
+        res = len(nums1) * [-1]
+        for idx,num in enumerate(nums1):
+            if num in result:
+                res[idx] = result[num]
+        return res
+
