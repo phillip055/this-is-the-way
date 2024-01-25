@@ -1,12 +1,11 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        hashmap = {}
-        for i, v in enumerate(nums):
-            if v in hashmap:
-                if abs(hashmap[v] - i) <= k:
-                    return True
-            hashmap[v] = i
-                
-        
+        banned = set()
+        for idx in range(len(nums)):
+            if nums[idx] in banned:
+                return True
+            banned.add(nums[idx])
+            if len(banned) > k:
+                banned.remove(nums[idx - k])
         return False
-            
+    
