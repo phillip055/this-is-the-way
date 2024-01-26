@@ -1,9 +1,17 @@
 class Solution:
     def firstUniqChar(self, s: str) -> int:
-        count = collections.Counter(s)
+        freq = Counter(s)
         
-        # find the index
-        for idx, ch in enumerate(s):
-            if count[ch] == 1:
-                return idx     
+        uniq_elements = {}
+        for k, v in freq.items():
+            if v == 1:
+                uniq_elements[k] = v
+        
+        
+        for idx, ch in enumerate(list(s)):
+            if ch in uniq_elements:
+                return idx
         return -1
+        
+        
+        
