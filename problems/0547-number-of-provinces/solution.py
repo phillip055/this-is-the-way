@@ -1,26 +1,27 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        mapping = defaultdict(list)
+        adj = defaultdict(list)
+        for nodeIdx, node in enumerate(isConnected):
+            for nextIdx, val in enumerate(node):
+                if val:
+                    adj[nodeIdx].append(nextIdx)
         
-        for i in range(len(isConnected)):
-            for j in range(len(isConnected[0])):
-                if isConnected[i][j] and i != j:
-                    mapping[i].append(j)
-
         visited = set()
-
-        def dfs(node):
-            if node in visited:
-                return
-            visited.add(node)
-            for n in mapping[node]:
-                dfs(n)
+        provinces = 0 
         
-        count = 0
-        for i in range(len(isConnected)):
-            if i not in visited:
-                count += 1
-                dfs(i)
+        def dfs(idx):
+            for next_node in adj[idx]:
+                if not next_node in visited:
+                    visited.add(next_node)
+                    dfs(next_node)
         
-        return count
+        for k, v in adj.items():
+            if k in visited:
+                continue
+            else:
+                provinces += 1
+                visited.add(k)
+                dfs(k)
+        
+        return provinces
 
