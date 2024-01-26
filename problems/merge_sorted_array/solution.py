@@ -3,10 +3,20 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        for i in range(m+n-1, -1, -1):
-            if m and (not n or nums1[m-1] > nums2[n-1]):
-                nums1[i] = nums1[m-1]
-                m -= 1
+        
+        idx = len(nums1) - 1
+        idx0, idx1 = m-1, n-1
+        while idx0 >= 0 and idx1 >= 0:
+            if nums1[idx0] > nums2[idx1]:
+                nums1[idx] = nums1[idx0]
+                idx0 -= 1
             else:
-                nums1[i] = nums2[n-1]
-                n -= 1
+                nums1[idx] = nums2[idx1]
+                idx1 -= 1
+            idx -= 1
+
+        while idx1 >= 0:
+            nums1[idx1] = nums2[idx1]
+            idx1 -= 1
+        return nums1
+        
