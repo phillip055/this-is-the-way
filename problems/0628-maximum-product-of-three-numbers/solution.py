@@ -1,6 +1,10 @@
 class Solution:
-    def maximumProduct(self, nums: List[int]) -> int:
-        nums.sort()
-        pre = nums[-1] * nums[-2] * nums[-3]
-        post = nums[0] * nums[1] * nums[-1]
-        return max(pre, post)
+    def maximumProduct(self, arr: List[int]) -> int:
+        n = len(arr)
+        if n < 3:
+            return -1
+        arr.sort()
+        return max(arr[0] * arr[1] * arr[n - 1], 
+                   arr[n - 1] * arr[n - 2] * arr[n - 3]) 
+ 
+
