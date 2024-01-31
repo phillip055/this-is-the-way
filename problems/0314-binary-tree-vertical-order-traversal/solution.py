@@ -6,15 +6,18 @@
 #         self.right = right
 class Solution:
     def verticalOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        to_explore = [(root, 0)]
-        groups = defaultdict(list)
+        if not root:
+            return []
+        to_explore = deque([(root, 0)])
+        ch = defaultdict(list)
+        
         while len(to_explore):
-            node, col = to_explore.pop(0)
-            if not node:
-                continue
-            groups[col].append(node.val)
-            to_explore.append((node.left, col - 1))
-            to_explore.append((node.right, col + 1))
-        thi = dict(sorted(groups.items())).values()
-        return thi
- 
+            node, col = to_explore.popleft()
+            ch[col].append(node.val)
+            if node.left:
+                to_explore.append((node.left, col-1))
+            if node.right:
+                to_explore.append((node.right, col+1))
+        ch = dict(sorted(ch.items()))
+        return ch.values()
+
