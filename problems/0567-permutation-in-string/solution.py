@@ -1,22 +1,11 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        size = len(s1)
-        ptr1 = 0
-        ptr2 = size
-        word1 = Counter(s1)
-        while ptr2 < len(s2) + 1:
-            currentWord = Counter(s2[ptr1:ptr2])
-            invalid = False
-            print(currentWord)
-            print(word1)
-            for i in word1:
-                if word1[i] != currentWord[i]:
-                    invalid = True
-                    break
-            if not invalid:
+        if len(s1) > len(s2):
+            return False
+        
+        window_size = len(s1)
+        for idx in range(window_size, len(s2)+1):
+            s = s2[idx-window_size: idx]
+            if Counter(s) == Counter(s1):
                 return True
-            ptr1 += 1
-            ptr2 += 1
         return False
-            
-
