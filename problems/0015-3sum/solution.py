@@ -1,20 +1,22 @@
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        targetSum = 0
-        nums = sorted(nums)
-        results = set()
-        for i in range(len(nums)):
-            leftIdx = i + 1
-            rightIdx = len(nums) - 1
-            while leftIdx < rightIdx:
-                candidate = nums[leftIdx] + nums[rightIdx] + nums[i]
-                if candidate == targetSum:
-                    results.add((nums[i], nums[leftIdx], nums[rightIdx])) 
-                    leftIdx += 1
-                    rightIdx -= 1
-                elif candidate > targetSum:
-                    rightIdx -= 1
+        nums.sort()
+        
+        result = []
+        in_result = set()
+        for idx in range(len(nums) - 2):
+            total = nums[idx]
+            l, r = idx + 1, len(nums) - 1
+            while l < r:
+                candidate = total + nums[l] + nums[r]
+                if candidate == 0:
+                    if (total, nums[l], nums[r]) not in in_result:
+                        result.append([total, nums[l], nums[r]])
+                        in_result.add((total, nums[l], nums[r]))
+                    r -= 1
+                if candidate > 0:
+                    r -= 1
                 else:
-                    leftIdx += 1
-        return results
+                    l += 1
+        return result
 
