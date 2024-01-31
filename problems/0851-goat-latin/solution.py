@@ -10,6 +10,3 @@ class Solution:
             word += "ma" + ("a" * (idx + 1))
             result.append(word)
         return " ".join(result)
-            
-            
-
