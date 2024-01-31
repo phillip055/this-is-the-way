@@ -1,21 +1,23 @@
 class Solution:
     def isAlienSorted(self, words: List[str], order: str) -> bool:
-        if len(words) <= 1:
-            return True
-        order_dict = {}
-        for idx, o in enumerate(order):
-            order_dict[o] = idx
+        char_weight = {}
+        for idx, char in enumerate(order):
+            char_weight[char] = idx
         
-        def less_than_or_equal(word1, word2):
-            for l1, l2 in zip(word1, word2):
-                if order_dict[l1] == order_dict[l2]:
-                    continue
-                return order_dict[l1] <= order_dict[l2]
+        def lesserThan(word1, word2):
+            idx = 0 
+            while idx < len(word1) and idx < len(word2):
+                if char_weight[word1[idx]] == char_weight[word2[idx]]:
+                    idx += 1
+                elif char_weight[word1[idx]] > char_weight[word2[idx]]:
+                    return False
+                else:
+                    return True
             return len(word1) <= len(word2)
-
+        
         for idx in range(1, len(words)):
-            prev = words[idx - 1]
-            current = words[idx]
-            if not less_than_or_equal(prev, current):
+            if not lesserThan(words[idx-1], words[idx]):
                 return False
         return True
+            
+        
