@@ -1,12 +1,14 @@
 class Solution:
     def isStrobogrammatic(self, num: str) -> bool:
-        rotated_nums = {"6": "9", "9":"6", "8": "8", "0": "0", "1": "1"}
-
-        result = ""
-        for e in reversed(num):
-            if e in rotated_nums:
-                result += rotated_nums[e]
+        revert = {"1": "1", "6": "9", "9": "6", "8":"8", "0":"0"}
+        if len(num) == 0:
+            return True        
+        l, r = 0, len(num) - 1
+        while l <= r:
+            if num[l] in revert and revert[num[l]] == num[r]:
+                l += 1
+                r -= 1
             else:
                 return False
-
-        return result == num
+        return True
+    
