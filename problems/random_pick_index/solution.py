@@ -1,14 +1,12 @@
 class Solution:
 
     def __init__(self, nums: List[int]):
-        self.h = defaultdict(list)
+        self.hash = defaultdict(list)
         for idx, num in enumerate(nums):
-            self.h[num].append(idx)
-        
+            self.hash[num].append(idx)
 
     def pick(self, target: int) -> int:
-        return random.choice(self.h[target])
-        
+        return random.choice(self.hash[target])
 
 
 # Your Solution object will be instantiated and called as such:
