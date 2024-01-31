@@ -1,16 +1,14 @@
 class Solution:
     def validPalindrome(self, s: str) -> bool:
-        
-        @cache
-        def helper(s, l, r, allowed_errors=1):
-            if l >= r:
+        def helper(s, start, end, allowed_mistake=1):
+            if end <= start:
                 return True
-            if s[l] == s[r]:
-                return helper(s, l+1, r-1, allowed_errors)
+            if s[start] == s[end]:
+                return helper(s, start + 1, end - 1, allowed_mistake)
             else:
-                if allowed_errors == 0:
+                if allowed_mistake == 0:
                     return False
-                allowed_errors -= 1
-                return helper(s, l+1, r, allowed_errors) or helper(s, l, r - 1, allowed_errors)
-        return helper(s, 0, len(s) - 1)
-
+                else:
+                    return helper(s, start + 1, end, allowed_mistake-1) or helper(s, start, end - 1, allowed_mistake-1)
+            
+        return helper(s, 0, len(s)-1)
