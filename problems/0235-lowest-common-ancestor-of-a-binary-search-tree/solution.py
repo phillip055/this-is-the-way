@@ -5,21 +5,22 @@
 #         self.left = None
 #         self.right = None
 
-class NodeInfo:
-    def __init__(self, LCA, hasQ, hasP):
-        self.LCA = LCA
-        self.hasQ = hasQ
-        self.hasP = hasP
-
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        large = max(p.val, q.val)
-        small = min(p.val, q.val)
-        while root:
-            if root.val > large:
-                root = root.left
-            elif root.val < small:
-                root = root.right
-            else:
-                return root
-        return None
+        if not root or p == root or q == root:
+            return root
+        
+        left = None
+        right = None
+        
+        if root.val > p.val and root.val > q.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        if root.val < p.val and root.val < q.val:    
+            return self.lowestCommonAncestor(root.right, p, q)
+
+        left = self.lowestCommonAncestor(root.left, p, q)
+        right =  self.lowestCommonAncestor(root.right, p, q)
+        if left and right:
+            return root
+        return left or right
+
