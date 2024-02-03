@@ -1,3 +1,3 @@
 class Solution:
     def bulbSwitch(self, n: int) -> int:
-        return int(sqrt(n))
+        return math.floor(math.sqrt(n))
