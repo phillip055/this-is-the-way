@@ -9,3 +9,4 @@ class Solution:
             if Counter(s) == Counter(s1):
                 return True
         return False
+        
