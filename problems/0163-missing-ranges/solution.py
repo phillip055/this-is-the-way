@@ -1,17 +1,24 @@
-
+[0,0]
+0
 
 class Solution:
     def findMissingRanges(self, nums: List[int], lower: int, upper: int) -> List[List[int]]:
-        if len(nums) == 0:
+        if not len(nums):
             return [[lower, upper]]
-        missing = []
+        nums.sort()
+        result = []
+
         for idx in range(1, len(nums)):
-            if nums[idx] - nums[idx-1] > 1:
-                missing.append([nums[idx-1] + 1, nums[idx] - 1])
-        if lower < nums[0]:
-            missing = [[lower, nums[0] - 1]] + missing
+            if nums[idx-1] + 1 < nums[idx]:
+                result.append([nums[idx-1] + 1, nums[idx] - 1])
         
-        if upper > nums[-1]:
-            missing = missing + [[nums[-1] + 1, upper]]
-        return missing
+        if nums[0] > lower:
+            result = [[lower, nums[0]-1]] + result
+        
+        if nums[-1] < upper:
+            result = result + [[nums[-1] + 1, upper]]
+        return result
+
+
+
 
