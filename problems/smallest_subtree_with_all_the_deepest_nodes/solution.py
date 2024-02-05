@@ -6,28 +6,26 @@
 #         self.right = right
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
-
-        depth = {None: 0}
-        
-        def dd(root, parent=None):
+        depths = defaultdict(list)
+        def depth(root, height=0):
             if not root:
                 return
-            depth[root] = depth[parent] + 1
-            dd(root.left, root)
-            dd(root.right, root)
+            depths[height].append(root)
+            depth(root.left, height + 1)
+            depth(root.right, height + 1)
         
-        dd(root)
-        max_depth = max(depth.values())
-
+        depth(root)
+        
+        max_depth = max(depths)
+        deepest_nodes = depths[max_depth]
+        
         def lca(root):
-            if root == None:
-                return None
-            if depth[root] == max_depth:
+            if not root or root in deepest_nodes:
                 return root
-            l = lca(root.left)
-            r = lca(root.right)
-            if l and r:
+            left = lca(root.left)
+            right = lca(root.right)
+            if left and right:
                 return root
-            return l or r
+            return left or right
+        
         return lca(root)
-
