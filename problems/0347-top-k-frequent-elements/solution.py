@@ -1,6 +1,12 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    def topKFrequent(self, nums: List[int], cap: int) -> List[int]:
         freq = Counter(nums)
-        result = freq.most_common(k)
-        return list(map(lambda x: x[0], result))
+        pq = []
+        heapq.heapify(pq)
+        for k,v in freq.items():
+            heapq.heappush(pq, (v, k))
+            if len(pq) > cap:
+                heapq.heappop(pq)
+        
+        return [x[1] for x in pq]
 
