@@ -1,17 +1,18 @@
 class Solution:
     def isBipartite(self, graph: List[List[int]]) -> bool:
         colors = [None] * len(graph)
-        for i in range(len(graph)):
-            if colors[i] is None:
-                colors[i] = 1
-                queue = [i]
-                while queue:
-                    currentNode = queue.pop(0)
-                    for node in graph[currentNode]:
-                        if colors[node] is None:
-                            colors[node] = 1 - colors[currentNode]
-                            queue.append(node)
-                        elif colors[node] == colors[currentNode]:
+
+        for edge in range(len(graph)):
+            if colors[edge] == None:
+                colors[edge] = 1
+                to_explore = deque([edge])
+                while len(to_explore):
+                    node = to_explore.popleft()
+                    for _next in graph[node]:
+                        if not colors[_next]:
+                            colors[_next] = 1 - colors[node]
+                            to_explore.append(_next)
+                        elif colors[node] == colors[_next]:
                             return False
         return True
 
