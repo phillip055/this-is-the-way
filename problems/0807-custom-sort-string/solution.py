@@ -1,19 +1,13 @@
 class Solution:
     def customSortString(self, order: str, s: str) -> str:
-        ordering = {}
-        for idx, val in enumerate(order):
-            ordering[val] = idx
-            
         freq = Counter(s)
-        
-        ordering = sorted(ordering, key=ordering.get)
-        result = ""
-        for ch in ordering:
-            if ch in freq:
-                result += ch * freq[ch]
-                del freq[ch]
-        
+        result = []
+        for o in order:
+            if o in freq:
+                result.append(o*freq[o])
+                del freq[o]
         for k, v in freq.items():
-            result += k * v
-        return result
+            result.append(k*v)
+        return "".join(result)
 
+        
