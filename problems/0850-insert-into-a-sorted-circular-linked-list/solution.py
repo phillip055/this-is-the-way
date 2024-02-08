@@ -6,28 +6,37 @@ class Node:
         self.next = next
 """
 
+# case 1
+# prev <= val <= curr
+# case 2
+# prev > curr
+# # val >= prev or val <= curr
+
 class Solution:
     def insert(self, head: 'Optional[Node]', insertVal: int) -> 'Node':
-        if head == None:
+        if head is None:
             node = Node(insertVal)
             node.next = node
             return node
-        if head.next == None:
-            return Node(insertVal, head)
-
-        curr = head.next
-        prev = head
-        while prev.next != head:
+        
+        prev, curr = head, head.next
+        while True:
+            insertTo = False
             if prev.val <= insertVal <= curr.val:
-                break
-
-            if prev.val > curr.val and (insertVal > prev.val or insertVal < curr.val):
-                break
+                insertTo = True
+            elif prev.val > curr.val:
+                if insertVal >= prev.val or insertVal <= curr.val:
+                    insertTo = True
             
-            prev, curr = prev.next, curr.next
-
-        # Insert node.
+            if insertTo:
+                prev.next = Node(insertVal, curr)
+                return head
+            
+            prev, curr = curr, curr.next
+            if prev == head:
+                break
         prev.next = Node(insertVal, curr)
+
         return head
 
 
