@@ -6,14 +6,16 @@ class Solution:
         while l < r:
             mid = (l + r) // 2
             if nums[mid] == target:
-                l = r = mid
+                l = mid
+                r = mid
                 break
             elif nums[mid] > target:
                 r = mid - 1
             else:
-                l = mid + 1
+                l = mid + 1   
+
         if nums[l] != target:
-            return [-1,-1]
+            return [-1,-1]             
 
         while l - 1 >= 0 and nums[l-1] == target:
             l -= 1
