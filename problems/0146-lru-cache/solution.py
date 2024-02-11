@@ -11,16 +11,14 @@ class LRUCache:
 
     def put(self, key: int, value: int) -> None:
         if key in self.cache:
-            # Update the value and move the key to the end
+            self.cache.move_to_end(key)
+            self.cache[key] = value
+            return value
+        else:
             self.cache[key] = value
             self.cache.move_to_end(key)
-        else:
-            # Add a new key-value pair
-            if len(self.cache) >= self.capacity:
-                # Evict the least recently used key (first key in OrderedDict)
+            if len(self.cache) > self.capacity:
                 self.cache.popitem(last=False)
-            self.cache[key] = value
-# Your LRUCache object will be instantiated and called as such:
-# obj = LRUCache(capacity)
-# param_1 = obj.get(key)
-# obj.put(key,value)
+            return value
+
+
