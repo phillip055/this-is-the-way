@@ -8,15 +8,17 @@ class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
 
         def dfs(root):
-            if not root:
+            if root is None:
                 return None
-            leftTail = dfs(root.left)
-            rightTail = dfs(root.right)
+            left = dfs(root.left)
+            right = dfs(root.right)
 
-            if root.left:
-                leftTail.right = root.right
+            if left:
+                left.right = root.right
                 root.right = root.left
                 root.left = None
-            return rightTail or leftTail or root
+            return right or left or root
         return dfs(root)
+
+                
 
