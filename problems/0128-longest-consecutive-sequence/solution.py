@@ -1,25 +1,20 @@
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if len(nums) == 0:
-            return 0
         nums = set(nums)
-        max_seq = float('-inf')
+        max_length = 0
         while len(nums):
-            num = nums.pop()
+            node = nums.pop()
             streak = 1
-            curr = num
-            while curr - 1 in nums:
-                nums.remove(curr-1)
+            cursor = node
+            while cursor - 1 in nums:
+                cursor = cursor - 1
+                nums.remove(cursor)
                 streak += 1
-                curr -= 1
-            curr = num
-            while curr + 1 in nums:
-                nums.remove(curr+1)
+            cursor = node
+            while cursor + 1 in nums:
+                cursor = cursor + 1
+                nums.remove(cursor)
                 streak += 1
-                curr += 1
-            max_seq = max(max_seq, streak)
-        return max_seq
-            
-
-            
+            max_length = max(streak, max_length)
+        return max_length
 
