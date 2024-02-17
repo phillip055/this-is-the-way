@@ -8,31 +8,51 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        fast, slow = head, head
-        while fast.next != None and fast.next.next != None:
-            fast = fast.next.next
-            slow = slow.next
-        mid = self.reverseList(slow.next)
-        slow.next = None
+        def r(h):
+            p = None
+            c = h
+            while c:
+                t = c.next
+                c.next = p
+                p = c
+                c = t
+            return p
 
+
+        curr = head
+        count = 1
+        while curr:
+            curr = curr.next
+            count += 1
+        mid = count //2
         
-        curr1, curr2 = head, mid
-        while curr1 or curr2:
-            _next1 = curr1.next
-            curr1.next = curr2
-            curr1 = curr2
-            curr2 = _next1
-        return head
-        
-            
-        
-    def reverseList(self, head:Optional[ListNode]) -> Optional[ListNode]:
         curr = head
         prev = None
-        while curr != None:
-            _next = curr.next
-            curr.next = prev
+        while mid > 0:
+            mid -= 1
             prev = curr
-            curr = _next
-        return prev
+            curr = curr.next
         
+        prev.next = None
+        l1 = head
+        l2 = r(curr)
+        res = ListNode()
+        while l1 and l2:
+            res.next = l1
+            l1 = l1.next
+            res = res.next
+            
+            res.next = l2
+            l2 = l2.next
+            res = res.next
+        while l1:
+            res.next = l1
+            l1 = l1.next
+            res = res.next
+        while l2:
+            res.next = l2
+            l2 = l2.next
+            res = res.next
+
+
+
