@@ -22,6 +22,6 @@ class Solution:
                 item = q.pop(0)
                 heapq.heappush(pq, (item[0], item[1]))
         return interval
-                
-        
+
+
         
