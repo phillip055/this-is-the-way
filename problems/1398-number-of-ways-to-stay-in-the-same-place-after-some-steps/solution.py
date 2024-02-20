@@ -1,21 +1,18 @@
 class Solution:
     def numWays(self, steps: int, arrLen: int) -> int:
-        
+        MOD = 10 ** 9 + 7   
         @cache
-        def helper(steps, arrLen, at):
-            if steps == 0:
-                if at == 0:
-                    return 1
+        def helper(idx, steps, arrayLen):
+            if idx >= arrLen or idx < 0:
                 return 0
-            count = 0
-            count += helper(steps-1, arrLen, at)
-            
-            if at > 0:
-                count = (count + helper(steps-1, arrLen, at-1)) % MOD
-        
-            if at < arrLen-1:
-                count = (count + helper(steps-1, arrLen, at+1)) % MOD
-            return count
-        
-        MOD = 10 ** 9 + 7
-        return helper(steps, arrLen, 0)
+            if steps == 0 and idx == 0:
+                return 1
+            if steps == 0:
+                return 0
+            result = 0
+            result += helper(idx + 1, steps - 1, arrLen) % MOD
+            result += helper(idx - 1, steps - 1, arrLen) % MOD
+            result += helper(idx, steps - 1, arrLen)
+            return result
+        return helper(0, steps, arrLen) % MOD
+
