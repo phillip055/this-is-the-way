@@ -1,27 +1,21 @@
 class Solution:
     def leastInterval(self, tasks: List[str], n: int) -> int:
-        interval = 0
-        
         freq = Counter(tasks)
-        
+        pq = [-v for k, v in freq.items()]
+        heapq.heapify(pq)
         q = []
         
-        pq = [(-v, k) for k, v in freq.items()]
-        
-        heapq.heapify(pq)
+        time = 0
         
         while len(pq) or len(q):
-            interval += 1
-            
+            time += 1
             if len(pq):
-                item = heapq.heappop(pq)
-                if item[0] + 1 < 0:
-                    q.append((item[0] + 1, item[1], interval + n))
+                remaining = heapq.heappop(pq)
+                if remaining + 1 < 0:
+                    q.append((remaining + 1, time + n))
+            while len(q) and q[0][1] <= time:
+                node = q.pop(0)
+                heapq.heappush(pq, node[0])
+        return time
             
-            while len(q) and q[0][2] <= interval:
-                item = q.pop(0)
-                heapq.heappush(pq, (item[0], item[1]))
-        return interval
-
-
         
