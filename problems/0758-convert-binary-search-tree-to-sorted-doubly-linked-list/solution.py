@@ -11,27 +11,23 @@ class Solution:
     def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
         if root is None:
             return None
-        
         first, last = None, None
-
+        
         def helper(root):
             nonlocal first, last
             if root is None:
                 return
             helper(root.left)
-
             if last:
                 last.right = root
                 root.left = last
             else:
                 first = root
-            
-            last = root
+            last = root                
             helper(root.right)
         
         helper(root)
         first.left = last
         last.right = first
         return first
-                
-
+        
