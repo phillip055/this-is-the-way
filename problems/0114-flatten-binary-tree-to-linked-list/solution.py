@@ -6,19 +6,16 @@
 #         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
-
-        def dfs(root):
-            if root is None:
-                return None
-            left = dfs(root.left)
-            right = dfs(root.right)
-
-            if left:
-                left.right = root.right
-                root.right = root.left
-                root.left = None
-            return right or left or root
-        return dfs(root)
-
-                
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        if root is None:
+            return None
+        left = self.flatten(root.left)
+        right = self.flatten(root.right)
+        if left:
+            left.right = root.right
+            root.right = root.left
+            root.left = None
+        return right or left or root
 
