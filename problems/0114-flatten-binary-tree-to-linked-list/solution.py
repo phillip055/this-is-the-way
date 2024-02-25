@@ -11,6 +11,7 @@ class Solution:
         """
         if root is None:
             return None
+        
         left = self.flatten(root.left)
         right = self.flatten(root.right)
         if left:
