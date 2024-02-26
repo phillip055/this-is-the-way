@@ -2,26 +2,17 @@ class Solution:
 
     def __init__(self, w: List[int]):
         self.total = 0
-        self.prefix_sum = []
-        for n in w:
-            self.total += n
-            self.prefix_sum.append(self.total)
+        self.prefix_sums = []
+        for e in w:
+            self.total += e
+            self.prefix_sums.append(self.total)
 
     def pickIndex(self) -> int:
-        low, high = 0, len(self.prefix_sum) - 1
         target = random.uniform(0, self.total)
-        while low <= high:
-            mid = (low + high) // 2
-            if self.prefix_sum[mid] >= target:
-                high = mid - 1
-            else:
-                low = mid + 1
-        return low
+        for i, prefix_sum in enumerate(self.prefix_sums):
+            if target < prefix_sum:
+                return i
         
-
-        
-
-
 
 
 # Your Solution object will be instantiated and called as such:
