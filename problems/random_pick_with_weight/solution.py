@@ -9,11 +9,9 @@ class Solution:
 
     def pickIndex(self) -> int:
         target = random.uniform(0, self.total)
-        for i, prefix_sum in enumerate(self.prefix_sums):
-            if target < prefix_sum:
-                return i
-        
-
+        low, high = 0, len(self.prefix_sums) - 1
+        idx = bisect.bisect(self.prefix_sums, target)
+        return idx
 
 # Your Solution object will be instantiated and called as such:
 # obj = Solution(w)
