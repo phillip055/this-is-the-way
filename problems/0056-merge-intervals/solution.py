@@ -3,12 +3,14 @@ class Solution:
         if not len(intervals):
             return []
         intervals.sort()
-        result = [intervals[0]]
+        result = []
+        prev = intervals[0]
         for idx in range(1, len(intervals)):
-            node = intervals[idx]
-            prev = result[-1]
-            if node[0] > prev[1]:
-                result.append(node)
+            curr = intervals[idx]
+            if curr[0] <= prev[1]:
+                prev[1] = max(prev[1], curr[1])
             else:
-                prev[1] = max(node[1], prev[1])
+                result.append(prev)
+                prev = curr
+        result.append(prev)
         return result
