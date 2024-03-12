@@ -4,15 +4,15 @@ class Solution:
         to_remove = set()
         for idx, ch in enumerate(s):
             if ch == "(":
-                stack.append((ch, idx))
+                stack.append((idx, ch))
             if ch == ")":
                 if len(stack):
                     stack.pop()
                 else:
                     to_remove.add(idx)
-        for (opening_bracket, idx) in stack:
-            to_remove.add(idx)
-
+        for e in stack:
+            to_remove.add(e[0])
+        
         result = []
         for idx, ch in enumerate(s):
             if idx in to_remove:
@@ -20,4 +20,4 @@ class Solution:
             else:
                 result.append(ch)
         return "".join(result)
-        
+
