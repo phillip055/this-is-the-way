@@ -8,51 +8,43 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        def r(h):
-            p = None
-            c = h
-            while c:
-                t = c.next
-                c.next = p
-                p = c
-                c = t
-            return p
-
-
+        count = 0
         curr = head
-        count = 1
-        while curr:
+        while curr is not None:
             curr = curr.next
             count += 1
-        mid = count //2
         
+        mid = (count // 2) - 1
         curr = head
-        prev = None
         while mid > 0:
-            mid -= 1
-            prev = curr
             curr = curr.next
+            mid -= 1
         
-        prev.next = None
-        l1 = head
-        l2 = r(curr)
-        res = ListNode()
-        while l1 and l2:
-            res.next = l1
-            l1 = l1.next
-            res = res.next
-            
-            res.next = l2
-            l2 = l2.next
-            res = res.next
-        while l1:
-            res.next = l1
-            l1 = l1.next
-            res = res.next
-        while l2:
-            res.next = l2
-            l2 = l2.next
-            res = res.next
-
+        first = head
+        second = curr.next
+        curr.next = None
+        
+        def reverse(node):
+            curr = node
+            prev = None
+            while curr:
+                tmp = curr.next
+                curr.next = prev
+                prev = curr
+                curr = tmp
+            return prev
+        
+        second = reverse(second)
+        new_head = ListNode()
+        while first or second:
+            if first:
+                new_head.next = first
+                new_head = new_head.next
+                first = first.next
+            if second:
+                new_head.next = second
+                new_head = new_head.next
+                second = second.next
+        return new_head.next
 
 
