@@ -2,22 +2,21 @@ class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
         stack = []
         to_remove = set()
-        for idx, ch in enumerate(s):
-            if ch == "(":
-                stack.append((idx, ch))
-            if ch == ")":
-                if len(stack):
-                    stack.pop()
-                else:
+        for idx, char in enumerate(s):
+            if char == "(":
+                stack.append(idx)
+            elif char == ")":
+                if not len(stack):
                     to_remove.add(idx)
+                else:
+                    stack.pop()
         for e in stack:
-            to_remove.add(e[0])
+            to_remove.add(e)
         
         result = []
-        for idx, ch in enumerate(s):
+        for idx, char in enumerate(s):
             if idx in to_remove:
                 continue
-            else:
-                result.append(ch)
+            result.append(char)
         return "".join(result)
 
