@@ -1,17 +1,18 @@
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        output = []
-        subset = []
+        subsets = []
+        current = []
 
         def helper(idx):
+            nonlocal current
             if idx > len(nums) - 1:
-                output.append(subset.copy())
+                subsets.append(current.copy())
                 return
             
-            subset.append(nums[idx])
+            current.append(nums[idx])
             helper(idx + 1)
-            subset.pop()
+            current.pop()
             helper(idx + 1)
         helper(0)
-        return output
+        return subsets
 
