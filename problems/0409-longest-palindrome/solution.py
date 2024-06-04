@@ -11,3 +11,4 @@ class Solution:
                 unpaired_chars.add(char)
         
         return pairs * 2 + 1 if unpaired_chars else pairs * 2
+
